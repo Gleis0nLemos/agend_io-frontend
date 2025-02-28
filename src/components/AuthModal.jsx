@@ -7,12 +7,12 @@ import PropTypes from "prop-types";
 function AuthModal({ isOpen, onClose, initialType = "login" }) {
   const [isLogin, setIsLogin] = useState(initialType === "login");
 
-  // Atualiza isLogin sempre que initialType mudar
+  // Update isLogin whenever initialType changes
   useEffect(() => {
     setIsLogin(initialType === "login");
   }, [initialType]);
 
-  if (!isOpen) return null; // Se o modal não estiver aberto, não renderiza nada
+  if (!isOpen) return null; // If modal is not open, render nothing
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -24,7 +24,8 @@ function AuthModal({ isOpen, onClose, initialType = "login" }) {
           <X size={20} />
         </button>
 
-        {isLogin ? <Login /> : <Register />}
+        {/* Pass setIsLogin to login and register */}
+        {isLogin ? <Login /> : <Register setAuthMode={() => setIsLogin(true)} />}
 
         <p className="text-sm mt-2 text-center">
           {isLogin ? "Não tem conta? " : "Já tem uma conta? "}
