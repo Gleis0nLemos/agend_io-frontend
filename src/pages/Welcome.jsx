@@ -1,14 +1,22 @@
 import AuthModal from "../components/AuthModal";
 import Layout from "../layouts/MainLayout";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Welcome = () => {
     const [modalOpen, setModalOpen] = useState(false);
-    const [authType, setAuthType] = useState("login"); // Estado para definir qual tela abrir
+    const [authType, setAuthType] = useState("login");
+    const navigate = useNavigate();
 
     const openModal = (type) => {
         setAuthType(type);
         setModalOpen(true);
+    };
+
+    const handleLoginSuccess = (userData) => {
+        localStorage.setItem("user", JSON.stringify(userData)); // Salva o usuário no localStorage
+        setModalOpen(false); // Fecha o modal
+        navigate(`/home/${userData.id}`); // Redireciona usando o ID do usuário
     };
 
     return (
@@ -33,7 +41,8 @@ const Welcome = () => {
                     <AuthModal
                         isOpen={modalOpen}
                         onClose={() => setModalOpen(false)}
-                        initialType={authType} // Passando o tipo correto
+                        initialType={authType}
+                        onLoginSuccess={handleLoginSuccess} // Passa a função de redirecionamento
                     />
                 </div>
             </div>

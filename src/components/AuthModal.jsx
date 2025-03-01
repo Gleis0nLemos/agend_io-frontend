@@ -4,15 +4,14 @@ import Login from "./Login";
 import Register from "./Register";
 import PropTypes from "prop-types";
 
-function AuthModal({ isOpen, onClose, initialType = "login" }) {
+function AuthModal({ isOpen, onClose, initialType = "login", onLoginSuccess }) {
   const [isLogin, setIsLogin] = useState(initialType === "login");
 
-  // Update isLogin whenever initialType changes
   useEffect(() => {
     setIsLogin(initialType === "login");
   }, [initialType]);
 
-  if (!isOpen) return null; // If modal is not open, render nothing
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -24,8 +23,11 @@ function AuthModal({ isOpen, onClose, initialType = "login" }) {
           <X size={20} />
         </button>
 
-        {/* Pass setIsLogin to login and register */}
-        {isLogin ? <Login /> : <Register setAuthMode={() => setIsLogin(true)} />}
+        {isLogin ? (
+          <Login onLoginSuccess={onLoginSuccess} />
+        ) : (
+          <Register setAuthMode={() => setIsLogin(true)} />
+        )}
 
         <p className="text-sm mt-2 text-center">
           {isLogin ? "Não tem conta? " : "Já tem uma conta? "}
@@ -45,6 +47,7 @@ AuthModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   initialType: PropTypes.oneOf(["login", "register"]),
+  onLoginSuccess: PropTypes.func.isRequired,
 };
 
 export default AuthModal;
