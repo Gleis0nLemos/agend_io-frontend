@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 const Home = () => {
-    const { id } = useParams(); // Get the ID from the URL
+    //const { id } = useParams(); // Get the ID from the URL
     const navigate = useNavigate(); // initialize the navigate function
     const [companies, setCompanies] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -18,27 +18,28 @@ const Home = () => {
             console.log("Dados do usuário:", userData); // Adicione este log
             console.log("Token:", token); // Adicione este log
 
-            // Check if the ID is valid
-            if (!id) {
-                setError("ID inválido.");
-                setLoading(false);
-                return;
-            }
+            // // Check if the ID is valid
+            // if (!id) {
+            //     setError("ID inválido.");
+            //     setLoading(false);
+            //     return;
+            // }
 
-            setUser(userData); // Set the user state
-
+            
             // Check if user data or token is missing
             if (!userData || !token) {
                 setError("Usuário ou token inválidos. Faça login novamente.");
                 navigate("/welcome"); // Redirect to welcome page
                 return;
             }
+            
+            setUser(userData); // Set the user state
 
-            // Check if the ID in the URL matches the user ID
-            if (userData.id !== id) {
-                setError("Usuário ou Token inválidos. Faça login novamente.");
-                navigate("/welcome"); // Redirect to welcome page
-            }
+            // // Check if the ID in the URL matches the user ID
+            // if (userData.id !== id) {
+            //     setError("Usuário ou Token inválidos. Faça login novamente.");
+            //     navigate("/welcome"); // Redirect to welcome page
+            // }
 
             try {
                 // Do a GET request to the API
@@ -71,7 +72,7 @@ const Home = () => {
         };
 
         fetchCompanies();
-    }, [id, navigate]); // Add navigate to the dependencies array
+    }, [navigate]); // Add navigate to the dependencies array
 
     const handleLogout = () => {
         localStorage.removeItem("user");

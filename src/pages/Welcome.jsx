@@ -16,7 +16,7 @@ const Welcome = () => {
     const handleLoginSuccess = (userData) => {
         localStorage.setItem("user", JSON.stringify(userData)); // Salva o usuário no localStorage
         setModalOpen(false); // Fecha o modal
-        navigate(`/home/${userData.id}`); // Redireciona usando o ID do usuário
+        navigate(`/home`); // Redireciona usando o ID do usuário
     };
 
     return (
