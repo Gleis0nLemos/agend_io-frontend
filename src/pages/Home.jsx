@@ -7,12 +7,16 @@ const Home = () => {
     const [companies, setCompanies] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const fetchCompanies = async () => {
             // Retrieve user data and token
-            const userData = JSON.parse(localStorage.getItem("user")); 
+            const userData = JSON.parse(localStorage.getItem("user"));
             const token = localStorage.getItem("token");
+
+            console.log("Dados do usuário:", userData); // Adicione este log
+            console.log("Token:", token); // Adicione este log
 
             // Check if the ID is valid
             if (!id) {
@@ -20,6 +24,8 @@ const Home = () => {
                 setLoading(false);
                 return;
             }
+
+            setUser(userData); // Set the user state
 
             // Check if user data or token is missing
             if (!userData || !token) {
@@ -79,7 +85,12 @@ const Home = () => {
     return (
         <div className="p-6">
             <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold">Bem-vindo, usuário {id}!</h1>
+                <div className="flex items-center gap-2">
+                    <h1 className="text-2xl font-bold">
+                        Bem-vindo, {user?.name}!
+                    </h1>
+                    <img src="https://avatar.iran.liara.run/public" alt="" className="h-12 w-12" />
+                </div>
                 <button
                     onClick={handleLogout}
                     className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
@@ -90,8 +101,11 @@ const Home = () => {
             <h2 className="text-xl mb-2">Lista de Companhias:</h2>
             <ul className="list-disc pl-6">
                 {companies.map((company) => (
-                    <li key={company.id} className="mb-2">
-                        {company.name}
+                    <li key={company.id} className="mb-2 list-none">
+                        <div className="flex items-center gap-2">
+                            <img src="https://avatar.iran.liara.run/public" alt="" className="h-12 w-12" />
+                            {company.name}
+                        </div>
                     </li>
                 ))}
             </ul>
