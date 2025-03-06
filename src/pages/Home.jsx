@@ -102,9 +102,13 @@ const Home = () => {
             <h2 className="text-xl mb-2">Lista de Companhias:</h2>
             <ul className="list-disc pl-6">
                 {companies.map((company) => (
-                    <li key={company.id} className="mb-2 list-none">
+                    <li 
+                        key={company.id} 
+                        className="mb-2 list-none cursor-pointer hover:bg-gray-200 p-2 rounded"
+                        onClick={() => navigate(`/companies/${company._id}`)} // Redireciona para detalhes
+                    >
                         <div className="flex items-center gap-2">
-                            <img src="https://avatar.iran.liara.run/public" alt="" className="h-12 w-12" />
+                            <img src="https://avatar.iran.liara.run/public" alt="Company" className="h-12 w-12 rounded-full" />
                             {company.name}
                         </div>
                     </li>

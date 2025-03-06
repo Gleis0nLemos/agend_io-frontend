@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Welcome from "../pages/Welcome";
 import ForCompanies from "../pages/ForCompanies";
 import Home from "../pages/Home"
+import CompanyDetails from "../components/CompanyDetails";
 
 
 const AppRoutes = () => {
@@ -11,6 +12,7 @@ const AppRoutes = () => {
         <Route path="/welcome" element={<Welcome />}/>
         <Route path="/forcompanies" element={<ForCompanies />}/>
         <Route path="/home" element={<Home />}/>
+        <Route path="/companies/:id" element={<CompanyDetails />}/>
       </Routes>
     </Router>
   );
