@@ -8,22 +8,31 @@ function AuthModal({ isOpen, onClose, initialType = "login", onLoginSuccess }) {
   const [isLogin, setIsLogin] = useState(initialType === "login");
 
   useEffect(() => {
-    setIsLogin(initialType === "login");
-  }, [initialType]);
+    if (isOpen) {
+      setIsLogin(initialType === "login");
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = ""; // Garante que o scroll volte ao fechar
+    };
+  }, [isOpen, initialType]);
 
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 flex items-center justify-center bg-black/20 backdrop-blur-sm z-50"
       onClick={onClose}
+    >
+      <div
+        className="bg-white py-8 px-6 rounded-lg shadow-lg w-80 relative"
+        onClick={(e) => e.stopPropagation()}
       >
-      <div 
-        className="bg-white p-6 rounded-lg shadow-lg w-80 relative"
-        onClick={(e) => e.stopPropagation()} 
-        >
         <button
-          className="absolute top-2 right-2 text-gray-600 hover:text-black"
+          className="absolute top-2 pr-2 pt-2 right-2 text-gray-400 hover:text-black cursor-pointer"
           onClick={onClose}
         >
           <X size={20} />
@@ -35,10 +44,12 @@ function AuthModal({ isOpen, onClose, initialType = "login", onLoginSuccess }) {
           <Register setAuthMode={() => setIsLogin(true)} />
         )}
 
+        <hr className='border-t mx-4 border-gray-300 md:mt-4' />
+
         <p className="text-sm mt-2 text-center">
           {isLogin ? "Não tem conta? " : "Já tem uma conta? "}
           <button
-            className="text-blue-500 underline"
+            className="text-indigo-600 underline hover:text-indigo-800 cursor-pointer"
             onClick={() => setIsLogin(!isLogin)}
           >
             {isLogin ? "Registrar-se" : "Fazer login"}
