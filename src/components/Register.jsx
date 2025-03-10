@@ -21,11 +21,11 @@ function Register({ setAuthMode }) {
       return;
     }
 
-    const userData = { 
-      name, 
-      email, 
-      password, 
-      phone, 
+    const userData = {
+      name,
+      email,
+      password,
+      phone,
       role: "client" // Set client as default role without user input
     };
 
@@ -65,58 +65,81 @@ function Register({ setAuthMode }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-      <h2 className="text-xl font-bold mb-4">Registrar-se</h2>
+    <form onSubmit={handleSubmit} className="pb-1">
+      <h2 className="text-xl font-bold mb-4 pt-2 pb-2">
+        Registrar-se no <span className="font-extrabold text-indigo-600">agend.io</span>
+      </h2>
       {error && <p className="text-red-500">{error}</p>}
       {success && <p className="text-green-500">Cadastro realizado com sucesso!</p>}
-      
+
+      <label htmlFor="name" className="block text-sm font-medium text-gray-500">
+        Nome
+      </label>
       <input
         type="text"
-        placeholder="Nome"
-        className="w-full p-2 border rounded mb-2"
+        placeholder="Nome completo"
+        className="w-full p-2 border rounded-lg mb-4 mt-1 border-gray-400"
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
       />
+
+      <label htmlFor="email" className="block text-sm font-medium text-gray-500">
+        Email
+      </label>
       <input
         type="email"
-        placeholder="Email"
-        className="w-full p-2 border rounded mb-2"
+        placeholder="ex: usuario@email.com"
+        className="w-full p-2 border rounded-lg mb-4 mt-1 border-gray-400"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
       />
+
+      <label htmlFor="password" className="block text-sm font-medium text-gray-500">
+        Senha
+      </label>
       <input
         type="password"
-        placeholder="Senha"
-        className="w-full p-2 border rounded mb-2"
+        placeholder="Digite sua senha"
+        className="w-full p-2 border rounded-lg mb-4 mt-1 border-gray-400"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
       />
+
+      <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-500">
+        Confirmar Senha
+      </label>
       <input
         type="password"
-        placeholder="Confirmar Senha"
-        className="w-full p-2 border rounded mb-2"
+        placeholder="Confirme sua senha"
+        className="w-full p-2 border rounded-lg mb-4 mt-1 border-gray-400"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
         required
       />
+
+      <label htmlFor="phone" className="block text-sm font-medium text-gray-500">
+        Telefone
+      </label>
       <input
         type="tel"
-        placeholder="Telefone"
-        className="w-full p-2 border rounded mb-2"
+        placeholder="Número de telefone"
+        className="w-full p-2 border rounded-lg mb-6 mt-1 border-gray-400"
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
         required
       />
+
       <button
-        className="w-full bg-green-500 text-white py-2 rounded"
+        className="bg-indigo-600 text-white w-full py-3 font-semibold items-center rounded-lg hover:bg-indigo-700 hover:cursor-pointer"
         disabled={loading}
       >
         {loading ? "Cadastrando..." : "Cadastrar"}
       </button>
     </form>
+
   );
 }
 
