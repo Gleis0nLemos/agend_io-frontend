@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../layouts/HomeLayout";
+import Undefined from "../components/ui/imgnocopy.jpeg";
+import Star from "../components/ui/star.svg"
 
 const Home = () => {
     //const { id } = useParams(); // Get the ID from the URL
@@ -84,23 +86,38 @@ const Home = () => {
             <div className="mt-36 w-[1200px] mx-auto">
                 <div className="flex justify-between items-center mb-4">
                     <div className="flex items-center gap-2">
-                        <h1 className="text-2xl font-bold">
-                            Bem-vindo, {user?.name}!
+                        <h1 className="text-3xl font-bold">
+                            Olá, {user?.name}! 🤙🏼
                         </h1>
-                        <img src="https://avatar.iran.liara.run/public" alt="" className="h-12 w-12" />
                     </div>
                 </div>
-                <h2 className="text-xl mb-2">Lista de Companhias:</h2>
-                <ul className="list-disc pl-6">
+
+                
+                <h2 className="text-lg mb-2 text-gray-600 pl-2 font-semibold">Empresas</h2>
+                <ul className="list-disc grid grid-cols-3">
                     {companies.map((company) => (
                         <li
                             key={company.id}
-                            className="mb-2 list-none cursor-pointer hover:bg-gray-200 p-2 rounded"
+                            className="list-none cursor-pointer w-[380px] hover:bg-gray-100 rounded-lg"
                             onClick={() => navigate(`/companies/${company._id}`)} // Redireciona para detalhes
                         >
-                            <div className="flex items-center gap-2">
-                                <img src="https://avatar.iran.liara.run/public" alt="Company" className="h-12 w-12 rounded-full" />
-                                {company.name}
+                            <div className="flex items-center py-4 px-2 gap-4">
+                                <div>
+
+                                <img src={Undefined} alt="Company" className="h-21 w-21 rounded-xl" />
+                                </div>
+                                {/* <img src="https://avatar.iran.liara.run/public" alt="Company" className="h-12 w-12 rounded-full" /> */}
+                                <div>
+                                    <p className="font-medium text-gray-700">{company.name}</p>
+                                    <div className="flex gap-2 text-sm items-center text-slate-400">
+                                        <div className="flex gap-1">
+                                        <img src={Star} alt="" className="h-4 w-4"/>
+                                            4.5
+                                        </div>
+                                        <p>• {company.category} •</p>
+                                        <p>2.3 km</p>
+                                    </div>
+                                </div>
                             </div>
                         </li>
                     ))}
