@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Layout from "../layouts/HomeLayout";
 
 const Home = () => {
     //const { id } = useParams(); // Get the ID from the URL
@@ -25,14 +26,14 @@ const Home = () => {
             //     return;
             // }
 
-            
+
             // Check if user data or token is missing
             if (!userData || !token) {
                 setError("Usuário ou token inválidos. Faça login novamente.");
                 navigate("/welcome"); // Redirect to welcome page
                 return;
             }
-            
+
             setUser(userData); // Set the user state
 
             // // Check if the ID in the URL matches the user ID
@@ -74,47 +75,38 @@ const Home = () => {
         fetchCompanies();
     }, [navigate]); // Add navigate to the dependencies array
 
-    const handleLogout = () => {
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
-        navigate("/welcome");
-    }
-
     if (loading) return <p>Carregando...</p>;
     if (error) return <p className="text-red-500">{error}</p>;
 
     return (
-        <div className="p-6">
-            <div className="flex justify-between items-center mb-4">
-                <div className="flex items-center gap-2">
-                    <h1 className="text-2xl font-bold">
-                        Bem-vindo, {user?.name}!
-                    </h1>
-                    <img src="https://avatar.iran.liara.run/public" alt="" className="h-12 w-12" />
+        <Layout>
+
+            <div className="mt-36 w-[1200px] mx-auto">
+                <div className="flex justify-between items-center mb-4">
+                    <div className="flex items-center gap-2">
+                        <h1 className="text-2xl font-bold">
+                            Bem-vindo, {user?.name}!
+                        </h1>
+                        <img src="https://avatar.iran.liara.run/public" alt="" className="h-12 w-12" />
+                    </div>
                 </div>
-                <button
-                    onClick={handleLogout}
-                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
-                >
-                    Logout
-                </button>
+                <h2 className="text-xl mb-2">Lista de Companhias:</h2>
+                <ul className="list-disc pl-6">
+                    {companies.map((company) => (
+                        <li
+                            key={company.id}
+                            className="mb-2 list-none cursor-pointer hover:bg-gray-200 p-2 rounded"
+                            onClick={() => navigate(`/companies/${company._id}`)} // Redireciona para detalhes
+                        >
+                            <div className="flex items-center gap-2">
+                                <img src="https://avatar.iran.liara.run/public" alt="Company" className="h-12 w-12 rounded-full" />
+                                {company.name}
+                            </div>
+                        </li>
+                    ))}
+                </ul>
             </div>
-            <h2 className="text-xl mb-2">Lista de Companhias:</h2>
-            <ul className="list-disc pl-6">
-                {companies.map((company) => (
-                    <li 
-                        key={company.id} 
-                        className="mb-2 list-none cursor-pointer hover:bg-gray-200 p-2 rounded"
-                        onClick={() => navigate(`/companies/${company._id}`)} // Redireciona para detalhes
-                    >
-                        <div className="flex items-center gap-2">
-                            <img src="https://avatar.iran.liara.run/public" alt="Company" className="h-12 w-12 rounded-full" />
-                            {company.name}
-                        </div>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        </Layout>
     );
 };
 
