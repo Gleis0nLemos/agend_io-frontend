@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Welcome from "../pages/Welcome";
 import ForCompanies from "../pages/ForCompanies";
 import Home from "../pages/Home"
-import CompanyDetails from "../components/CompanyDetails";
+import CompanyDetails from "../pages/CompanyDetails";
 
 
 const AppRoutes = () => {

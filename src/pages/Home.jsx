@@ -146,7 +146,6 @@ const Home = () => {
                             >
                                 <div className="flex items-center py-4 px-2 gap-4">
                                     <div>
-
                                         <img src={Undefined} alt="Company" className="h-21 w-21 rounded-xl" />
                                     </div>
                                     {/* <img src="https://avatar.iran.liara.run/public" alt="Company" className="h-12 w-12 rounded-full" /> */}
