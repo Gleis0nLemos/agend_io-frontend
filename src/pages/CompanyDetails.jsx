@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Layout from "../layouts/HomeLayout";
 import Undefined from "../components/ui/imgnocopy.jpeg";
-import Star from "../components/ui/star.svg"
+import Star from "../components/ui/star.svg";
+import Informations from "../components/Informations";
 
 // Função para obter o ID do usuário autenticado
 const getUserId = () => {
@@ -20,6 +21,7 @@ const getUserId = () => {
 };
 
 const CompanyDetails = () => {
+    const [isOpen, setIsOpen] = useState(false);
     const { id } = useParams();
     const navigate = useNavigate();
     const [company, setCompany] = useState(null);
@@ -202,11 +204,14 @@ const CompanyDetails = () => {
                             </div>
                         </div>
                         <div className="flex gap-8">
-                            <span className="text-gray-500">|</span> 
-                        <div className="font-bold text-indigo-500 cursor-pointer hover:text-indigo-700">
-                            Mais informações
+                            <span className="text-gray-500">|</span>
+                            <button
+                                onClick={() => setIsOpen(true)}
+                                className="font-bold text-indigo-500 cursor-pointer hover:text-indigo-700">
+                                Mais informações
+                            </button>
                         </div>
-                        </div>
+                        <Informations isOpen={isOpen} onClose={() => setIsOpen(false)} />
                     </div>
                     <div className="flex gap-2 items-center">
                         <div className="w-2 h-2 bg-green-600 pb-1 rounded-full"></div>
